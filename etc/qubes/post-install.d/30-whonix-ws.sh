@@ -3,15 +3,12 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-## Better not setting errtrace ('set -e').
+## style-ok: no-strict -- Better not setting errtrace ('set -e').
 ## https://github.com/QubesOS/qubes-issues/issues/4080#issuecomment-405100531
 
-set -o errexit
-set -o nounset
-set -o pipefail
-set -o errtrace
-shopt -s inherit_errexit
-shopt -s shift_verbose
+## FIXME: This file is poorly named, it is useful on both the gateway and
+## workstation and contains code for both. Requires rename and rm_conffile in
+## debian/qubes-whonix.maintscript
 
 if [ -f "/usr/share/anon-gw-base-files/gateway" ]; then
    qvm-features-request whonix-gw=1 || true
