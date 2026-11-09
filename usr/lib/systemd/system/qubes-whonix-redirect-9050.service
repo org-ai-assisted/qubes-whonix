@@ -27,3 +27,8 @@ SystemCallArchitectures=native
 LockPersonality=yes
 SystemCallFilter=~memfd_create
 NoExecPaths=/run /tmp /var/tmp /dev/shm /dev
+
+## Defense-in-depth (separate axis from W^X): NoNewPrivileges blocks this
+## daemon from gaining privileges (setuid/setgid, file capabilities, AppArmor
+## non-subset Px). systemd-socket-proxyd gains no privilege.
+NoNewPrivileges=yes
