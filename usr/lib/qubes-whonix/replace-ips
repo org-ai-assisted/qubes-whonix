@@ -282,12 +282,6 @@ def replace_ip(
                     f"but failed to open filename for writing: '{filename}'"
                 )
                 continue
-                # return False
-        # else:
-            # print(
-            #     f"INFO: '{protocol}': filename from filelist unchanged: "
-            #     f"'{filename}'"
-            # )
     if replaced:
         try:
             with open(ip_file, "w", encoding="utf-8") as outfile:
