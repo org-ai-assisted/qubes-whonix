@@ -1,4 +1,4 @@
-#!/usr/bin/python3 -su
+#!/usr/bin/python3 -Bsu
 # pylint: disable=invalid-name,broad-exception-caught,global-statement
 
 """
@@ -127,9 +127,10 @@ def var_name(obj: Any, up: int = 1) -> str | None:
                 return name
         return None
     finally:
-        # avoid reference cycles
-        for frame in reversed(frame_arr):
-            del frame
+        # Break reference cycles: the collected frames reference this
+        # helper's own frame via f_back, so drop the whole list here
+        # rather than waiting on the cyclic garbage collector.
+        del frame_arr
 
 
 def whonix_mode() -> str:
@@ -281,12 +282,6 @@ def replace_ip(
                     f"but failed to open filename for writing: '{filename}'"
                 )
                 continue
-                # return False
-        # else:
-            # print(
-            #     f"INFO: '{protocol}': filename from filelist unchanged: "
-            #     f"'{filename}'"
-            # )
     if replaced:
         try:
             with open(ip_file, "w", encoding="utf-8") as outfile:
